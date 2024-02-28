@@ -1,0 +1,55 @@
+<html xmlns:th="http://www.thymeleaf.org">
+ <head>
+    <style>
+     a{
+     	text-decoration:underline !important;
+     	font-size:1.6vw;
+     }
+    </style> 
+  	<link th:href="@{/CSS/style.css}" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+	<link th:href="@{/CSS/bootstrap.min.css}" rel="stylesheet">
+ </head>
+ <body  onload="makeActive('list')">
+  <div class='dvv'>
+   <label class='lal'>EMPLOYEE DASHBOARD</label>
+  </div> 
+  <div class='container'>
+    <div>
+     <a href="/employee-dashboard/add-employee">Add new Employee</a>
+    </div>
+  	<div class='card col-md-12 mx-auto' style='border:3px solid silver'>
+  	  <div class='card-body'>
+	   <div th:if="${elist.empty}" class="dvv">
+		   <label class="la text-danger">Employee dashboard has no record</label>
+	   </div>		
+  	   <div th:if="${!elist.empty}" class='table scrollit'>
+  	    <table class='table table-hover'>
+  	     <thead>
+  	      <tr>
+  	      	<th>Employee id</th><th>First name</th><th>Last name</th>
+  	      	<th>Phone number</th><th>Department</th><th>Salary</th>
+  	      	<th style='color:orange'>Action</th>
+  	      </tr>
+  	     </thead>
+  	     <tbody>
+		  <tr th:each="emp:${elist}">
+			<td th:text="${emp.eid}"></td>
+			<td th:text="${emp.firstname}"></td>  
+			<td th:text="${emp.lastname}"></td>  
+			<td th:text="${emp.phone}"></td>  
+			<td th:text="${emp.department}"></td>
+			<td th:text="${emp.salary}"></td>      
+			<td>
+				<a th:href="@{/employee-dashboard/edit-record(eid=${emp.eid})}">Edit |</a>
+				<a th:href="@{/employee-dashboard/delete-record(eid=${emp.eid})}" onclick="return confirm('Are you sure to delete?')">Delete</a>
+			</td>
+		  </tr>	   
+	     </tbody> 
+  	    </table>
+  	   </div> 	
+  	  </div>
+  	</div>
+  </div>
+ </body>
+</html>
